@@ -15,9 +15,9 @@ Open `http://localhost:8080` to preview the static page.
 ## Contents
 
 - Core policy capabilities and two navigation testbeds.
-- Simulation and physical results from manuscript Tables 4–5; native keepout control from Table 6.
+- Simulation and physical results from manuscript Tables 5–6; Native KeepoutFilter and Custom KeepoutLayer comparison from Table 7.
 - Policy-conversion and contradiction benchmarks.
-- Environment and trajectory images from Figures 2–4.
+- Simulation and physical experimental environments and representative simulation trajectories.
 - Map-extension and shared-policy interface videos. The three-robot GUI video is separate from the manuscript's two-robot demonstrations.
 
 This page has its own assets and deployment.
