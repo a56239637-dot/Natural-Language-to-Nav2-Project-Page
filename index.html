@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Natural-Language to Nav2: Operational Policies for Costmap-Based Navigation. Command benchmarks and navigation results in simulation and on physical robots.">
+  <meta name="theme-color" content="#173e35">
+  <meta property="og:title" content="Natural-Language to Nav2: Operational Policies for Costmap-Based Navigation">
+  <meta property="og:description" content="Operational Policies for Costmap-Based Navigation. Explore the capabilities, benchmarks, and robot experiments.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://a56239637-dot.github.io/Natural-Language-to-Nav2-Project-Page/assets/simulation.png">
+  <title>Natural-Language to Nav2: Operational Policies for Costmap-Based Navigation</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="wrap navigation" aria-label="Main navigation">
+      <a href="#top" class="wordmark" aria-label="Natural-Language to Nav2 home"><span class="mark" aria-hidden="true">N<span>↗</span></span> NL / Nav2</a>
+      <div class="nav-links"><a href="#capabilities">Capabilities</a><a href="#results">Results</a><a href="#benchmark">Benchmark</a><a href="#demos">Demos</a></div>
+      <a class="nav-code" href="https://github.com/a56239637-dot/Natural-Language-to-Nav2-Operational-Policies-for-Costmap-Based-Navigation">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Natural-language robot navigation</p>
+        <h1 id="title">Natural-Language<br>to <em>Nav2.</em></h1>
+        <p class="subtitle">Operational Policies for<br>Costmap-Based Navigation</p>
+        <p class="hero-description">Bring operating instructions into robot navigation. A local language model interprets the policy; Nav2 plans and follows the path.</p>
+        <div class="hero-actions"><a class="button primary" href="#demos">Watch the demos <span aria-hidden="true">↘</span></a><a class="text-link" href="#benchmark">Explore the results <span aria-hidden="true">→</span></a></div>
+        <div class="stack-tags" aria-label="Technology stack"><span>ROS 2 Humble</span><span>Nav2</span><span>Local LLMs</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Experimental environments from the manuscript">
+        <figure class="hero-image simulation-photo">
+          <img src="assets/simulation.png" alt="Gazebo warehouse with parallel aisles, shelving, and a mobile delivery robot" width="863" height="524" fetchpriority="high">
+          <figcaption><span>01 / Simulation</span><strong>Gazebo warehouse</strong></figcaption>
+        </figure>
+        <figure class="hero-image physical-photo">
+          <img src="assets/physical-testbed.png" alt="Physical maze testbed with white corridor partitions used for TurtleBot3 navigation" width="1600" height="901">
+          <figcaption><span>02 / Physical robot</span><strong>TurtleBot3 testbed</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="wrap fact-strip" aria-label="Evaluation scope">
+      <div><strong>150</strong><span>English commands</span></div>
+      <div><strong>10 × 5</strong><span>Intentions × phrasing levels</span></div>
+      <div><strong>4</strong><span>Navigation tasks</span></div>
+      <div><strong>2</strong><span>Experimental environments</span></div>
+    </div>
+
+    <section id="capabilities" class="section wrap" aria-labelledby="capabilities-title">
+      <div class="section-heading"><div><p class="eyebrow">01 / Capabilities</p><h2 id="capabilities-title">Instructions beyond<br>the geometric map.</h2></div><p>Destinations, corridor restrictions, and operating conditions become inspectable policies without replacing the Nav2 planner or controller.</p></div>
+      <div class="capability-grid">
+        <article><span class="feature-number">01</span><h3>Choose where to go.</h3><p>Specify ordered waypoints and required transit zones. Registered map labels connect language to navigation goals.</p><div class="feature-tags"><span>Waypoints</span><span>Transit zones</span></div></article>
+        <article><span class="feature-number">02</span><h3>Shape the available routes.</h3><p>Close a corridor or assign relative zone costs. Object rules add configured avoidance regions around detected people.</p><div class="feature-tags"><span>Keepouts</span><span>Soft costs</span><span>Object regions</span></div></article>
+        <article><span class="feature-number">03</span><h3>Let conditions change.</h3><p>Apply time-limited restrictions and event-dependent permissions. The costmap can change while the destination remains active.</p><div class="feature-tags"><span>Timed expiry</span><span>Event rules</span></div></article>
+        <article><span class="feature-number">04</span><h3>Keep policy state explicit.</h3><p>Inspect accepted updates, queue follow-up missions, and share constraints across namespaced robots with independent Nav2 instances.</p><div class="feature-tags"><span>Validation</span><span>Mission queue</span><span>Shared policies</span></div></article>
+      </div>
+    </section>
+
+    <section id="results" class="section results-section" aria-labelledby="results-title">
+      <div class="wrap">
+        <div class="section-heading"><div><p class="eyebrow">02 / Navigation experiments</p><h2 id="results-title">Operating policies.<br>Observable route changes.</h2></div><p>Four tasks examine keepout avoidance, zone costs, person-conditioned avoidance, and event-dependent passage in two testbeds.</p></div>
+        <div class="tabs" role="tablist" aria-label="Navigation environment" data-tab-group="navigation">
+          <button id="tab-simulation" type="button" role="tab" aria-selected="true" aria-controls="panel-simulation">Simulation <span>Gazebo</span></button>
+          <button id="tab-physical" type="button" role="tab" aria-selected="false" aria-controls="panel-physical" tabindex="-1">Physical robot <span>TurtleBot3 Waffle</span></button>
+        </div>
+        <div id="panel-simulation" role="tabpanel" aria-labelledby="tab-simulation" tabindex="0">
+          <div class="result-summary"><p><strong>Gazebo warehouse</strong><br>A 25.9 × 41.6 m environment with shelves, barriers, and moving obstacles.</p><div><span>Task 1 · Keepout</span><strong>114.009 <small>→</small> 86.125 <small>s</small></strong><p>Mean travel time: Baseline → Policy</p></div></div>
+          <div class="table-scroll" role="region" aria-label="Simulation navigation results" tabindex="0">
+            <table class="result-table"><caption>Simulation results · mean ± sample SD · reported n = 10 per condition</caption><thead><tr><th scope="col">Task / policy</th><th scope="col">Comparison</th><th scope="col">Travel time (s)</th><th scope="col">Travel distance (m)</th></tr></thead><tbody>
+              <tr><th scope="row"><span>Task 1</span>Keepout</th><td>Baseline → Policy</td><td><span>114.009 ± 0.721</span><b>→ 86.125 ± 0.230</b></td><td><span>48.572 ± 0.108</span><b>→ 37.245 ± 0.108</b></td></tr>
+              <tr><th scope="row"><span>Task 2</span>Zone costs</th><td>Baseline → Policy</td><td><span>311.369 ± 1.444</span><b>→ 238.751 ± 3.643</b></td><td><span>126.152 ± 0.180</span><b>→ 96.003 ± 0.177</b></td></tr>
+              <tr><th scope="row"><span>Task 3</span>Person avoidance</th><td>Baseline → Policy</td><td><span>142.049 ± 0.315</span><b>→ 115.872 ± 0.790</b></td><td><span>61.185 ± 0.140</span><b>→ 49.527 ± 0.340</b></td></tr>
+              <tr class="separate-comparison"><th scope="row"><span>Task 4</span>Event permission</th><td>Priority-Off → Priority-On</td><td><span>86.170 ± 0.456</span><b>→ 81.056 ± 0.328</b></td><td><span>37.241 ± 0.186</span><b>→ 34.699 ± 0.121</b></td></tr>
+            </tbody></table>
+          </div>
+          <details class="trace-details"><summary>View representative Task 1 trajectories <span aria-hidden="true">+</span></summary><div class="trace-grid"><figure><img src="assets/simulation-baseline.png" alt="Simulation Task 1 baseline trajectory approaches the blocked corridor before detouring" width="646" height="358" loading="lazy"><figcaption>Baseline</figcaption></figure><figure><img src="assets/simulation-policy.png" alt="Simulation Task 1 policy-informed trajectory directly takes the alternative corridor" width="646" height="358" loading="lazy"><figcaption>Policy</figcaption></figure></div></details>
+        </div>
+        <div id="panel-physical" role="tabpanel" aria-labelledby="tab-physical" tabindex="0" hidden>
+          <div class="result-summary"><p><strong>Physical maze</strong><br>TurtleBot3 Waffle with LiDAR, RGB-D sensing, and an onboard Jetson Orin Nano.</p><div><span>Task 1 · Keepout</span><strong>62.179 <small>→</small> 40.390 <small>s</small></strong><p>Mean travel time: Baseline → Policy</p></div></div>
+          <div class="table-scroll" role="region" aria-label="Physical navigation results" tabindex="0">
+            <table class="result-table"><caption>Physical results · mean ± sample SD · reported n = 10 per condition</caption><thead><tr><th scope="col">Task / policy</th><th scope="col">Comparison</th><th scope="col">Travel time (s)</th><th scope="col">Travel distance (m)</th></tr></thead><tbody>
+              <tr><th scope="row"><span>Task 1</span>Keepout</th><td>Baseline → Policy</td><td><span>62.179 ± 1.322</span><b>→ 40.390 ± 1.213</b></td><td><span>11.993 ± 0.210</span><b>→ 8.138 ± 0.190</b></td></tr>
+              <tr><th scope="row"><span>Task 2</span>Zone costs</th><td>Baseline → Policy</td><td><span>55.849 ± 0.687</span><b>→ 42.959 ± 1.079</b></td><td><span>10.850 ± 0.080</span><b>→ 8.303 ± 0.156</b></td></tr>
+              <tr><th scope="row"><span>Task 3</span>Person avoidance</th><td>Baseline → Policy</td><td><span>42.109 ± 2.073</span><b>→ 32.160 ± 1.153</b></td><td><span>8.020 ± 0.352</span><b>→ 6.394 ± 0.216</b></td></tr>
+              <tr class="separate-comparison"><th scope="row"><span>Task 4</span>Event permission</th><td>Priority-Off → Priority-On</td><td><span>46.280 ± 0.341</span><b>→ 26.640 ± 0.230</b></td><td><span>9.308 ± 0.047</span><b>→ 5.165 ± 0.018</b></td></tr>
+            </tbody></table>
+          </div>
+          <details class="trace-details"><summary>View representative Task 1 trajectories <span aria-hidden="true">+</span></summary><div class="trace-grid physical-traces"><figure><img src="assets/physical-baseline.png" alt="Physical Task 1 baseline trajectory with an initial approach and turn back" width="1134" height="946" loading="lazy"><figcaption>Baseline</figcaption></figure><figure><img src="assets/physical-policy.png" alt="Physical Task 1 policy-informed trajectory following the alternative route" width="1136" height="944" loading="lazy"><figcaption>Policy</figcaption></figure></div></details>
+        </div>
+        <p class="note result-note">Tasks 1–3 compare sensor-based Nav2 with the same stack supplied with operating policies. Task 4 compares passage permissions within the policy-enabled stack.</p>
+        <details class="keepout-details"><summary><span>Native keepout control <small>Same region. Five runs per method.</small></span><span aria-hidden="true">+</span></summary><div class="details-body"><p>Native KeepoutFilter and custom KeepoutLayer both complete 5/5 runs and support restriction, release, and reapplication in pre-motion checks.</p><div class="table-scroll" role="region" aria-label="Native keepout comparison" tabindex="0"><table><caption>Simulation keepout control · mean ± sample SD</caption><thead><tr><th scope="col">Method</th><th scope="col">Completed</th><th scope="col">Distance (m)</th><th scope="col">Time (s)</th></tr></thead><tbody><tr><th scope="row">Native KeepoutFilter</th><td>5/5</td><td>37.339 ± 0.103</td><td>86.430 ± 0.236</td></tr><tr><th scope="row">Custom KeepoutLayer</th><td>5/5</td><td>37.300 ± 0.131</td><td>86.351 ± 0.329</td></tr></tbody></table></div><a class="text-link" href="https://github.com/a56239637-dot/Natural-Language-to-Nav2-Operational-Policies-for-Costmap-Based-Navigation/tree/main/data/keepout-comparison/runs">Odometry &amp; ground-truth records <span aria-hidden="true">↗</span></a></div></details>
+      </div>
+    </section>
+
+    <section id="benchmark" class="section benchmark-section" aria-labelledby="benchmark-title">
+      <div class="wrap">
+        <div class="section-heading"><div><p class="eyebrow">03 / Language benchmark</p><h2 id="benchmark-title">Different words.<br>The intended policy.</h2></div><p>Four local LLMs and a rule-based parser are evaluated on a researcher-authored English benchmark, from direct instructions to indirect expressions.</p></div>
+        <div class="benchmark-highlight"><div><strong>94.7<span>%</span></strong><p>142 / 150 correct accepted policies<br><b>Qwen3.5-9B</b></p></div><div><strong>29.3<span>%</span></strong><p>44 / 150 correct accepted policies<br><b>Rule-based parser</b></p></div></div>
+        <div class="tabs" role="tablist" aria-label="Benchmark evaluation" data-tab-group="benchmark">
+          <button id="tab-conversion" type="button" role="tab" aria-selected="true" aria-controls="panel-conversion">Policy conversion <span>150 commands</span></button>
+          <button id="tab-contradiction" type="button" role="tab" aria-selected="false" aria-controls="panel-contradiction" tabindex="-1">Contradictions <span>100 commands</span></button>
+        </div>
+        <div id="panel-conversion" role="tabpanel" aria-labelledby="tab-conversion" tabindex="0">
+          <div class="table-scroll" role="region" aria-label="Policy-conversion benchmark results" tabindex="0"><table class="benchmark-table"><caption>Correct accepted policies · identical schema and 15 prompt demonstrations for the LLMs</caption><thead><tr><th scope="col">Method</th><th scope="col">Post-V policy accuracy</th><th scope="col">95% CI</th><th scope="col">Generation latency</th></tr></thead><tbody>
+            <tr><th scope="row">Rule-based parser</th><td><b>29.3%</b> <span>(44/150)</span><i class="accuracy-bar" style="--accuracy:29.3%" aria-hidden="true"></i></td><td>22.6–37.1%</td><td>0.175 ms</td></tr>
+            <tr><th scope="row">Llama 3.1-8B</th><td><b>71.3%</b> <span>(107/150)</span><i class="accuracy-bar" style="--accuracy:71.3%" aria-hidden="true"></i></td><td>63.6–78.0%</td><td>2.533 s</td></tr>
+            <tr><th scope="row">Qwen2.5-7B</th><td><b>81.3%</b> <span>(122/150)</span><i class="accuracy-bar" style="--accuracy:81.3%" aria-hidden="true"></i></td><td>74.3–86.8%</td><td>1.694 s</td></tr>
+            <tr><th scope="row">Qwen3-8B</th><td><b>94.0%</b> <span>(141/150)</span><i class="accuracy-bar" style="--accuracy:94%" aria-hidden="true"></i></td><td>89.0–96.8%</td><td>1.800 s</td></tr>
+            <tr><th scope="row">Qwen3.5-9B</th><td><b>94.7%</b> <span>(142/150)</span><i class="accuracy-bar" style="--accuracy:94.7%" aria-hidden="true"></i></td><td>89.8–97.3%</td><td>3.011 s</td></tr>
+          </tbody></table></div>
+          <details class="outcome-details"><summary>View all five processing outcomes <span aria-hidden="true">+</span></summary><div class="table-scroll" role="region" aria-label="Processing outcome breakdown" tabindex="0"><table><caption>Mutually exclusive counts · each row totals 150</caption><thead><tr><th scope="col">Method</th><th scope="col">Correct<br>accepted</th><th scope="col">Incorrect<br>accepted</th><th scope="col">Interpreter<br>rejection</th><th scope="col">Parsing<br>rejection</th><th scope="col">Validator<br>rejection</th></tr></thead><tbody><tr><th scope="row">Rule-based parser</th><td>44</td><td>101</td><td>5</td><td>0</td><td>0</td></tr><tr><th scope="row">Llama 3.1-8B</th><td>107</td><td>20</td><td>0</td><td>0</td><td>23</td></tr><tr><th scope="row">Qwen2.5-7B</th><td>122</td><td>10</td><td>3</td><td>0</td><td>15</td></tr><tr><th scope="row">Qwen3-8B</th><td>141</td><td>7</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">Qwen3.5-9B</th><td>142</td><td>3</td><td>4</td><td>0</td><td>1</td></tr></tbody></table></div></details>
+        </div>
+        <div id="panel-contradiction" role="tabpanel" aria-labelledby="tab-contradiction" tabindex="0" hidden>
+          <div class="table-scroll" role="region" aria-label="Contradictory-command benchmark results" tabindex="0"><table><caption>Five conflict categories · 20 commands per category</caption><thead><tr><th scope="col">Method</th><th scope="col">Interpreter recognition</th><th scope="col">Pipeline containment</th></tr></thead><tbody><tr><th scope="row">Rule-based parser</th><td>24% (24/100)</td><td>24% (24/100)</td></tr><tr><th scope="row">Llama 3.1-8B</th><td>45% (45/100)</td><td>96% (96/100)</td></tr><tr><th scope="row">Qwen2.5-7B</th><td>77% (77/100)</td><td>97% (97/100)</td></tr><tr><th scope="row">Qwen3-8B</th><td>92% (92/100)</td><td>99% (99/100)</td></tr><tr><th scope="row">Qwen3.5-9B</th><td>100% (100/100)</td><td>100% (100/100)</td></tr></tbody></table></div>
+        </div>
+        <div class="benchmark-footer"><a class="button light" href="https://github.com/a56239637-dot/Natural-Language-to-Nav2-Operational-Policies-for-Costmap-Based-Navigation/blob/main/benchmarks/benchmark-data.json">Commands &amp; reference policies <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <section id="demos" class="section wrap" aria-labelledby="demos-title">
+      <div class="section-heading"><div><p class="eyebrow">04 / Interface demonstrations</p><h2 id="demos-title">From an instruction<br>to a robot in motion.</h2></div><p>Watch the interface apply map-specific instructions and shared operating rules in Gazebo.</p></div>
+      <div class="demo-grid">
+        <figure class="demo"><div class="video-frame"><video controls playsinline preload="none" poster="assets/map-extension.jpg" aria-label="Video: navigating to a new waypoint while avoiding a registered zone"><source src="assets/map-extension.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/map-extension.mp4">Download the video</a>.</video></div><figcaption><span class="eyebrow">Map-specific policies</span><h3>New waypoint. New zone. Same interface.</h3><p>“Please go to WP9 without passing through Zone F.” The command is submitted through the GUI, then Gazebo and RViz show its navigation effect.</p></figcaption></figure>
+        <figure class="demo"><div class="video-frame"><video controls playsinline preload="none" poster="assets/shared-policy.jpg" aria-label="Video: three simulated robots following separate missions with shared zone restrictions"><source src="assets/shared-policy.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/shared-policy.mp4">Download the video</a>.</video></div><figcaption><span class="eyebrow">Shared policy interface</span><h3>Separate missions. Shared restrictions.</h3><p>Three namespaced Nav2 instances receive common zone rules while following independent waypoint missions.</p></figcaption></figure>
+      </div>
+    </section>
+
+    <section id="resources" class="resources-section"><div class="wrap resources-layout"><div><p class="eyebrow">Code &amp; data</p><h2>Explore the implementation.</h2><p>Policy Bridge, custom costmap layers, command benchmarks, and keepout run records.</p></div><a class="button primary" href="https://github.com/a56239637-dot/Natural-Language-to-Nav2-Operational-Policies-for-Costmap-Based-Navigation">Open GitHub repository <span aria-hidden="true">↗</span></a></div></section>
+    <noscript><div class="wrap note">JavaScript enables the environment and benchmark tabs. <a href="https://github.com/a56239637-dot/Natural-Language-to-Nav2-Operational-Policies-for-Costmap-Based-Navigation">Code and benchmark data remain available on GitHub.</a></div></noscript>
+  </main>
+  <footer class="wrap site-footer"><span>Natural-Language to Nav2</span><p>All rights reserved by the anonymous authors.</p><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>
